@@ -1,51 +1,40 @@
 # OpenAI Usage API - Flask Application
 
-This Flask application provides a REST API for accessing the OpenAI usage API.
+A modern Flask application that provides a REST API for accessing OpenAI usage data with intelligent caching and a React TypeScript frontend.
 
 ## Features
 
 ### Backend (Flask API)
-- View OpenAI usage data
-- Get subscription information
-- View billing usage
-- Get cost data
-- Get projects list
-- Get usage summary
-- Error handling and logging
-- API key validation
+- **Intelligent Caching**: Flask-Caching with 1-hour cache duration for `/costs` and `/projects` endpoints
+- **Cost Data**: Get OpenAI cost data with date range selection and project grouping
+- **Projects List**: Get OpenAI projects with search and pagination
+- **Error Handling**: Comprehensive error handling and logging
+- **API Key Validation**: Secure API key validation for all endpoints
+- **Date Normalization**: Automatic end-time normalization for consistent caching
 
 ### Frontend (React TypeScript)
-- Modern and responsive Bootstrap UI
-- Type safety with TypeScript
-- Dynamic user interface with React
-- Navigation menu and page routing
-- Projects page with DataTable-like table
-- Search and pagination features
-- Ready structure for API integration
+- **Modern UI**: Bootstrap-based responsive design
+- **Date Range Selector**: Interactive date range selection (This Month, Today, Last Week, Last 30 Days, Last Month)
+- **Usage Dashboard**: Real-time usage data with project breakdown
+- **Projects Management**: Searchable projects table with pagination
+- **Type Safety**: Full TypeScript implementation
+- **Dynamic Navigation**: Simplified navigation with Usage and Projects pages
 
 ## Installation
 
-### Backend (Flask API)
+### Prerequisites
+- Python 3.7+
+- Node.js 14+
+- OpenAI API Key
+
+### Backend Setup
 
 1. Install Python dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Set up environment file:
-
-**Windows:**
-```bash
-setup_env.bat
-```
-
-**Linux/Mac:**
-```bash
-chmod +x setup_env.sh
-./setup_env.sh
-```
-
-3. Configure your OpenAI API key:
+2. Set up environment variables:
 
 **Option 1: Using .env file (Recommended)**
 ```bash
@@ -77,21 +66,21 @@ export OPENAI_API_KEY="your-api-key-here"
 $env:OPENAI_ORG_ID="your-org-id-here"
 ```
 
-### Frontend (React TypeScript)
+### Frontend Setup
 
 1. Install Node.js dependencies:
 ```bash
 npm install
 ```
 
-2. Run in development mode:
+2. Build the frontend:
 ```bash
-npm start
+npm run build
 ```
 
-## Running
+## Running the Application
 
-### Quick Start (Full Application)
+### Quick Start
 
 **Windows:**
 ```bash
@@ -111,119 +100,84 @@ chmod +x start.sh
 python main.py
 ```
 
-2. Build and run the frontend:
-```bash
-npm install
-npm run build
-```
-
-The application will run at `http://localhost:5000` by default.
+2. The application will be available at `http://localhost:5000`
 
 ## API Endpoints
 
-### 1. Health Check
+### 1. Root (Frontend)
 ```
-GET /health
+GET /
 ```
-Checks the status of the API.
+Serves the React frontend application.
 
-**Response:**
-```json
-{
-  "status": "healthy",
-  "timestamp": "2024-01-01T12:00:00",
-  "api_key_configured": true
-}
+### 2. Costs Data
 ```
-
-### 2. Usage Data
+GET /costs?start_time=1704067200&end_time=1706745600&group_by=project_id&limit=31
 ```
-GET /usage?date=2024-01-01
-GET /usage?start_date=2024-01-01&end_date=2024-01-31
-```
-Gets OpenAI usage data.
-
-**Query Parameters:**
-- `date`: Specific date (in YYYY-MM-DD format)
-- `start_date`: Start date
-- `end_date`: End date
-
-### 3. Subscription Information
-```
-GET /subscription
-```
-Gets OpenAI subscription information.
-
-### 4. Billing Usage
-```
-GET /billing?start_date=2024-01-01&end_date=2024-01-31
-```
-Gets billing usage data.
-
-**Query Parameters:**
-- `start_date`: Start date (default: first day of month)
-- `end_date`: End date (default: today)
-
-### 5. Costs Data
-```
-GET /costs?start_time=1704067200&end_time=1706745600&bucket_width=1d&limit=7
-```
-Gets OpenAI cost data.
+Gets OpenAI cost data with intelligent caching.
 
 **Query Parameters:**
 - `start_time`: Start time (Unix seconds) - **Required**
-- `end_time`: End time (Unix seconds) - Optional
+- `end_time`: End time (Unix seconds) - Optional (normalized to end of day)
 - `bucket_width`: Time bucket width (default: "1d")
-- `group_by`: Grouping fields (project_id, line_item)
+- `group_by`: Grouping fields (project_id, line_item) - Supports multiple values
 - `limit`: Number of buckets to return (1-180, default: 7)
 - `page`: Cursor for pagination
-- `project_ids`: Cost data for specific projects
+- `project_ids`: Cost data for specific projects - Supports multiple values
 
-### 6. Projects List
+**Features:**
+- **Caching**: 1-hour cache duration for improved performance
+- **Date Normalization**: End times are normalized to 23:59:59 for consistent caching
+- **Multiple Parameters**: Supports multiple group_by and project_ids values
+
+### 3. Projects List
 ```
 GET /projects?after=proj_abc&limit=20&include_archived=false
 ```
-Gets the list of OpenAI projects.
+Gets the list of OpenAI projects with caching.
 
 **Query Parameters:**
 - `after`: Cursor for pagination (object ID)
 - `include_archived`: Include archived projects (default: false)
 - `limit`: Number of projects to return (1-100, default: 20)
 
-### 7. Usage Summary
-```
-GET /summary
-```
-Gets a summary of subscription, billing, and cost information.
+**Features:**
+- **Caching**: 1-hour cache duration
+- **Pagination**: Support for cursor-based pagination
+- **Archive Filtering**: Option to include/exclude archived projects
+
+## Frontend Features
+
+### Usage Dashboard
+- **Date Range Selector**: Choose from predefined ranges (This Month, Today, Last Week, Last 30 Days, Last Month)
+- **Summary Cards**: Total Cost, Project Count, Model Usage
+- **Projects Table**: Detailed usage breakdown by project with:
+  - Project names and descriptions
+  - Total cost and daily averages
+  - Model usage badges
+  - Percentage of total cost
+- **Real-time Data**: Automatic data refresh based on selected date range
+
+### Projects Management
+- **Searchable Table**: Search projects by name, ID, or description
+- **Pagination**: Navigate through large project lists
+- **Status Badges**: Visual indicators for project status (Active, Archived)
+- **Permission Badges**: Display user permissions (Admin, Write, Read Only)
+- **Date Formatting**: Localized date display
 
 ## Example Usage
 
 ### API calls with cURL:
 
 ```bash
-# Health check
-curl http://localhost:5000/health
+# Get cost data for this month
+curl "http://localhost:5000/costs?start_time=1704067200&end_time=1706745600&group_by=project_id&limit=31"
 
-# Today's usage data
-curl http://localhost:5000/usage
-
-# Usage for specific date range
-curl "http://localhost:5000/usage?start_date=2024-01-01&end_date=2024-01-31"
-
-# Subscription information
-curl http://localhost:5000/subscription
-
-# This month's billing data
-curl http://localhost:5000/billing
-
-# This month's cost data (using Unix timestamp)
-curl "http://localhost:5000/costs?start_time=1704067200&end_time=1706745600"
-
-# Projects list
+# Get projects list
 curl "http://localhost:5000/projects?limit=20&include_archived=false"
 
-# Usage summary
-curl http://localhost:5000/summary
+# Get projects with pagination
+curl "http://localhost:5000/projects?after=proj_abc&limit=10"
 ```
 
 ### API calls with Python:
@@ -231,34 +185,41 @@ curl http://localhost:5000/summary
 ```python
 import requests
 
-# Health check
-response = requests.get('http://localhost:5000/health')
-print(response.json())
-
-# Usage data
-response = requests.get('http://localhost:5000/usage', 
-                       params={'date': '2024-01-01'})
-print(response.json())
-
-# Subscription info
-response = requests.get('http://localhost:5000/subscription')
-print(response.json())
-
-# Costs data
+# Get cost data
 response = requests.get('http://localhost:5000/costs', 
-                       params={'start_time': '1704067200', 'end_time': '1706745600'})
+                       params={
+                           'start_time': '1704067200',
+                           'end_time': '1706745600',
+                           'group_by': 'project_id',
+                           'limit': '31'
+                       })
 print(response.json())
 
-# Projects list
+# Get projects list
 response = requests.get('http://localhost:5000/projects', 
                        params={'limit': '20', 'include_archived': 'false'})
 print(response.json())
+```
+
+## Caching System
+
+The application uses Flask-Caching with the following features:
+
+- **Cache Duration**: 1 hour (3600 seconds)
+- **Cache Type**: Simple in-memory cache
+- **Cache Keys**: Generated from endpoint and normalized parameters
+- **Cache Invalidation**: Automatic expiration after 1 hour
+- **Cache Logging**: Cache hits and misses are logged
+
+### Cached Endpoints:
+- `/costs` - Cost data with normalized date parameters
+- `/projects` - Projects list with all parameters
 
 ## Error Handling
 
 The API handles the following error conditions:
 
-- **400**: Invalid request parameters
+- **400**: Invalid request parameters (e.g., missing start_time)
 - **401**: Missing or invalid API key
 - **404**: Endpoint not found
 - **500**: Server error or OpenAI API error
@@ -266,15 +227,31 @@ The API handles the following error conditions:
 ## Security
 
 - API key is stored as an environment variable
-- API key is validated in all requests
+- API key is validated in all requests using `@require_api_key` decorator
 - Sensitive information is hidden in error messages
+- CORS is handled appropriately for frontend integration
 
 ## Logging
 
-The application logs all API calls and errors. Logs are written to the console.
+The application logs:
+- All API calls and responses
+- Cache hits and misses
+- Error conditions with detailed information
+- OpenAI API errors with status codes
 
-## Notes
+## Development Notes
 
-- Store your OpenAI API key securely
-- Disable debug mode in production environment
-- Consider OpenAI API rate limits for rate limiting 
+- **Debug Mode**: Enabled by default for development
+- **Hot Reload**: Frontend supports hot reloading in development
+- **Type Safety**: Full TypeScript implementation for frontend
+- **Responsive Design**: Bootstrap-based responsive UI
+- **Date Handling**: Consistent date formatting and timezone handling
+
+## Production Considerations
+
+- Disable debug mode in production
+- Consider using Redis or Memcached for caching in production
+- Implement rate limiting for API endpoints
+- Set up proper logging configuration
+- Configure CORS appropriately for your domain
+- Consider OpenAI API rate limits 

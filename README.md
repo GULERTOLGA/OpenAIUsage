@@ -1,38 +1,38 @@
 # OpenAI Usage API - Flask Application
 
-Bu Flask uygulaması, OpenAI kullanım API'sine erişim sağlayan bir REST API sunar.
+This Flask application provides a REST API for accessing the OpenAI usage API.
 
-## Özellikler
+## Features
 
 ### Backend (Flask API)
-- OpenAI kullanım verilerini görüntüleme
-- Abonelik bilgilerini alma
-- Faturalama kullanımını görüntüleme
-- Maliyet verilerini alma
-- Projeler listesini alma
-- Kullanım özeti alma
-- Hata yönetimi ve loglama
-- API anahtarı doğrulama
+- View OpenAI usage data
+- Get subscription information
+- View billing usage
+- Get cost data
+- Get projects list
+- Get usage summary
+- Error handling and logging
+- API key validation
 
 ### Frontend (React TypeScript)
-- Modern ve responsive Bootstrap UI
-- TypeScript ile tip güvenliği
-- React ile dinamik kullanıcı arayüzü
-- Navigation menüsü ve sayfa yönlendirme
-- Projeler sayfası ile DataTable benzeri tablo
-- Arama ve sayfalama özellikleri
-- API entegrasyonu için hazır yapı
+- Modern and responsive Bootstrap UI
+- Type safety with TypeScript
+- Dynamic user interface with React
+- Navigation menu and page routing
+- Projects page with DataTable-like table
+- Search and pagination features
+- Ready structure for API integration
 
-## Kurulum
+## Installation
 
 ### Backend (Flask API)
 
-1. Python bağımlılıklarını yükleyin:
+1. Install Python dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. Environment dosyasını kurun:
+2. Set up environment file:
 
 **Windows:**
 ```bash
@@ -45,14 +45,14 @@ chmod +x setup_env.sh
 ./setup_env.sh
 ```
 
-3. OpenAI API anahtarınızı ayarlayın:
+3. Configure your OpenAI API key:
 
-**Seçenek 1: .env dosyası kullanarak (Önerilen)**
+**Option 1: Using .env file (Recommended)**
 ```bash
-# env.example dosyasını .env olarak kopyalayın
+# Copy env.example to .env
 cp env.example .env
 
-# .env dosyasını düzenleyin ve API anahtarınızı ekleyin
+# Edit .env file and add your API key
 # Windows
 notepad .env
 
@@ -60,7 +60,7 @@ notepad .env
 nano .env
 ```
 
-**Seçenek 2: Environment variable olarak**
+**Option 2: As environment variable**
 ```bash
 # Windows PowerShell
 $env:OPENAI_API_KEY="your-api-key-here"
@@ -72,26 +72,26 @@ set OPENAI_API_KEY=your-api-key-here
 export OPENAI_API_KEY="your-api-key-here"
 ```
 
-3. İsteğe bağlı olarak OpenAI Organization ID'sini ayarlayın:
+3. Optionally configure OpenAI Organization ID:
 ```bash
 $env:OPENAI_ORG_ID="your-org-id-here"
 ```
 
 ### Frontend (React TypeScript)
 
-1. Node.js bağımlılıklarını yükleyin:
+1. Install Node.js dependencies:
 ```bash
 npm install
 ```
 
-2. Geliştirme modunda çalıştırın:
+2. Run in development mode:
 ```bash
 npm start
 ```
 
-## Çalıştırma
+## Running
 
-### Hızlı Başlangıç (Tüm Uygulama)
+### Quick Start (Full Application)
 
 **Windows:**
 ```bash
@@ -104,20 +104,20 @@ chmod +x start.sh
 ./start.sh
 ```
 
-### Manuel Çalıştırma
+### Manual Running
 
-1. Backend'i çalıştırın:
+1. Start the backend:
 ```bash
 python main.py
 ```
 
-2. Frontend'i build edin ve çalıştırın:
+2. Build and run the frontend:
 ```bash
 npm install
 npm run build
 ```
 
-Uygulama varsayılan olarak `http://localhost:5000` adresinde çalışacaktır.
+The application will run at `http://localhost:5000` by default.
 
 ## API Endpoints
 
@@ -125,7 +125,7 @@ Uygulama varsayılan olarak `http://localhost:5000` adresinde çalışacaktır.
 ```
 GET /health
 ```
-API'nin durumunu kontrol eder.
+Checks the status of the API.
 
 **Response:**
 ```json
@@ -141,92 +141,92 @@ API'nin durumunu kontrol eder.
 GET /usage?date=2024-01-01
 GET /usage?start_date=2024-01-01&end_date=2024-01-31
 ```
-OpenAI kullanım verilerini alır.
+Gets OpenAI usage data.
 
 **Query Parameters:**
-- `date`: Belirli bir tarih (YYYY-MM-DD formatında)
-- `start_date`: Başlangıç tarihi
-- `end_date`: Bitiş tarihi
+- `date`: Specific date (in YYYY-MM-DD format)
+- `start_date`: Start date
+- `end_date`: End date
 
 ### 3. Subscription Information
 ```
 GET /subscription
 ```
-OpenAI abonelik bilgilerini alır.
+Gets OpenAI subscription information.
 
 ### 4. Billing Usage
 ```
 GET /billing?start_date=2024-01-01&end_date=2024-01-31
 ```
-Faturalama kullanım verilerini alır.
+Gets billing usage data.
 
 **Query Parameters:**
-- `start_date`: Başlangıç tarihi (varsayılan: ayın ilk günü)
-- `end_date`: Bitiş tarihi (varsayılan: bugün)
+- `start_date`: Start date (default: first day of month)
+- `end_date`: End date (default: today)
 
 ### 5. Costs Data
 ```
 GET /costs?start_time=1704067200&end_time=1706745600&bucket_width=1d&limit=7
 ```
-OpenAI maliyet verilerini alır.
+Gets OpenAI cost data.
 
 **Query Parameters:**
-- `start_time`: Başlangıç zamanı (Unix seconds) - **Zorunlu**
-- `end_time`: Bitiş zamanı (Unix seconds) - İsteğe bağlı
-- `bucket_width`: Zaman dilimi genişliği (varsayılan: "1d")
-- `group_by`: Gruplandırma alanları (project_id, line_item)
-- `limit`: Döndürülecek bucket sayısı (1-180, varsayılan: 7)
-- `page`: Sayfalama için cursor
-- `project_ids`: Belirli projeler için maliyet verileri
+- `start_time`: Start time (Unix seconds) - **Required**
+- `end_time`: End time (Unix seconds) - Optional
+- `bucket_width`: Time bucket width (default: "1d")
+- `group_by`: Grouping fields (project_id, line_item)
+- `limit`: Number of buckets to return (1-180, default: 7)
+- `page`: Cursor for pagination
+- `project_ids`: Cost data for specific projects
 
 ### 6. Projects List
 ```
 GET /projects?after=proj_abc&limit=20&include_archived=false
 ```
-OpenAI projelerinin listesini alır.
+Gets the list of OpenAI projects.
 
 **Query Parameters:**
-- `after`: Sayfalama için cursor (object ID)
-- `include_archived`: Arşivlenmiş projeleri dahil et (varsayılan: false)
-- `limit`: Döndürülecek proje sayısı (1-100, varsayılan: 20)
+- `after`: Cursor for pagination (object ID)
+- `include_archived`: Include archived projects (default: false)
+- `limit`: Number of projects to return (1-100, default: 20)
 
 ### 7. Usage Summary
 ```
 GET /summary
 ```
-Abonelik, faturalama ve maliyet bilgilerinin özetini alır.
+Gets a summary of subscription, billing, and cost information.
 
-## Örnek Kullanım
+## Example Usage
 
-### cURL ile API çağrıları:
+### API calls with cURL:
 
 ```bash
 # Health check
 curl http://localhost:5000/health
 
-# Bugünün kullanım verileri
+# Today's usage data
 curl http://localhost:5000/usage
 
-# Belirli tarih aralığındaki kullanım
+# Usage for specific date range
 curl "http://localhost:5000/usage?start_date=2024-01-01&end_date=2024-01-31"
 
-# Abonelik bilgileri
+# Subscription information
 curl http://localhost:5000/subscription
 
-# Bu ayın faturalama verileri
+# This month's billing data
 curl http://localhost:5000/billing
 
-# Bu ayın maliyet verileri (Unix timestamp kullanarak)
+# This month's cost data (using Unix timestamp)
 curl "http://localhost:5000/costs?start_time=1704067200&end_time=1706745600"
 
-# Projeler listesi
+# Projects list
 curl "http://localhost:5000/projects?limit=20&include_archived=false"
 
-# Kullanım özeti
+# Usage summary
 curl http://localhost:5000/summary
 ```
 
-### Python ile API çağrıları:
+### API calls with Python:
 
 ```python
 import requests
@@ -254,27 +254,27 @@ response = requests.get('http://localhost:5000/projects',
                        params={'limit': '20', 'include_archived': 'false'})
 print(response.json())
 
-## Hata Yönetimi
+## Error Handling
 
-API, aşağıdaki hata durumlarını yönetir:
+The API handles the following error conditions:
 
-- **400**: Geçersiz istek parametreleri
-- **401**: API anahtarı eksik veya geçersiz
-- **404**: Endpoint bulunamadı
-- **500**: Sunucu hatası veya OpenAI API hatası
+- **400**: Invalid request parameters
+- **401**: Missing or invalid API key
+- **404**: Endpoint not found
+- **500**: Server error or OpenAI API error
 
-## Güvenlik
+## Security
 
-- API anahtarı environment variable olarak saklanır
-- Tüm isteklerde API anahtarı doğrulanır
-- Hata mesajlarında hassas bilgiler gizlenir
+- API key is stored as an environment variable
+- API key is validated in all requests
+- Sensitive information is hidden in error messages
 
-## Loglama
+## Logging
 
-Uygulama, tüm API çağrılarını ve hataları loglar. Loglar konsola yazdırılır.
+The application logs all API calls and errors. Logs are written to the console.
 
-## Notlar
+## Notes
 
-- OpenAI API anahtarınızı güvenli bir şekilde saklayın
-- Production ortamında debug modunu kapatın
-- Rate limiting için OpenAI API sınırlarını göz önünde bulundurun 
+- Store your OpenAI API key securely
+- Disable debug mode in production environment
+- Consider OpenAI API rate limits for rate limiting 

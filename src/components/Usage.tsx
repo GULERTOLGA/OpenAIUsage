@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Card, Alert, Spinner, Badge, Table, Row, Col, ProgressBar } from 'react-bootstrap';
+import { Container, Card, Alert, Spinner, Badge, Table, Row, Col, ProgressBar, ButtonGroup, Button } from 'react-bootstrap';
 import api from '../services/api';
 import { Usage as UsageModel, CostsApiResponse } from '../models/usage';
 import { ProjectsManager, ProjectsResponse } from '../models/projects';
+import { DateRange, getDateRanges, formatDateRange } from '../utils/dateUtils';
 
 const Usage: React.FC = () => {
   const [usageData, setUsageData] = useState<UsageModel | null>(null);
   const [projectsManager, setProjectsManager] = useState<ProjectsManager | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedDateRange, setSelectedDateRange] = useState<DateRange | null>(null);
+  const [dateRanges] = useState<DateRange[]>(getDateRanges());
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    // Varsayılan olarak "Bu Ay" seçeneğini seç
+    const defaultRange = dateRanges.find(range => range.label === "Bu Ay");
+    setSelectedDateRange(defaultRange || null);
+  }, [dateRanges]);
+
+  useEffect(() => {
+    if (selectedDateRange) {
+      fetchData();
+    }
+  }, [selectedDateRange]);
 
   const fetchData = async () => {
+    if (!selectedDateRange) return;
+    
     try {
       setLoading(true);
       
@@ -26,15 +39,15 @@ const Usage: React.FC = () => {
       
       // Then, fetch usage data
       console.log('Fetching usage data...');
-      const endTime = Math.floor(Date.now() / 1000);
-      const startTime = Math.floor((Date.now() - 30 * 24 * 60 * 60 * 1000) / 1000);
+      const daysDiff = Math.ceil((selectedDateRange.endTime - selectedDateRange.startTime) / (24 * 60 * 60));
+      const limit = Math.max(daysDiff, 31); // En az 31 gün, maksimum seçilen aralık kadar
       
       const usageResponse = await api.get<CostsApiResponse>('/costs', {
         params: {
-          start_time: startTime,
-          end_time: endTime,
+          start_time: selectedDateRange.startTime,
+          end_time: selectedDateRange.endTime,
           group_by: 'project_id',
-          limit: 31,
+          limit: limit,
           bucket_width: '1d'
         }
       });
@@ -97,7 +110,12 @@ const Usage: React.FC = () => {
       <Container className="mt-4">
         <Alert variant="info">
           <Alert.Heading>Veri Bulunamadı</Alert.Heading>
-          <p>Son 30 günde kullanım verisi bulunamadı.</p>
+          <p>
+            {selectedDateRange 
+              ? `${selectedDateRange.label} döneminde kullanım verisi bulunamadı.`
+              : 'Seçilen dönemde kullanım verisi bulunamadı.'
+            }
+          </p>
         </Alert>
       </Container>
     );
@@ -109,6 +127,34 @@ const Usage: React.FC = () => {
 
   return (
     <Container className="mt-4">
+      {/* Date Range Selector */}
+      <Card className="mb-4">
+        <Card.Body>
+          <div className="d-flex justify-content-between align-items-center">
+            <div>
+              <h5 className="mb-2">Tarih Aralığı</h5>
+              {selectedDateRange && (
+                <small className="text-muted">
+                  {formatDateRange(selectedDateRange.startDate, selectedDateRange.endDate)}
+                </small>
+              )}
+            </div>
+            <ButtonGroup>
+              {dateRanges.map((range) => (
+                <Button
+                  key={range.label}
+                  variant={selectedDateRange?.label === range.label ? 'primary' : 'outline-primary'}
+                  size="sm"
+                  onClick={() => setSelectedDateRange(range)}
+                >
+                  {range.label}
+                </Button>
+              ))}
+            </ButtonGroup>
+          </div>
+        </Card.Body>
+      </Card>
+
       {/* Summary Cards */}
       <Row className="mb-4">
         <Col md={4}>
@@ -116,7 +162,9 @@ const Usage: React.FC = () => {
             <Card.Body>
               <Card.Title>Toplam Maliyet</Card.Title>
               <h3 className="text-primary">{formatCurrency(totalCost)}</h3>
-              <small className="text-muted">Son 30 gün</small>
+              <small className="text-muted">
+                {selectedDateRange?.label || 'Seçilen dönem'}
+              </small>
             </Card.Body>
           </Card>
         </Col>
@@ -140,29 +188,7 @@ const Usage: React.FC = () => {
         </Col>
       </Row>
 
-      {/* Model Usage Breakdown */}
-      <Card className="mb-4">
-        <Card.Header>
-          <h5 className="mb-0">Model Kullanım Dağılımı</h5>
-        </Card.Header>
-        <Card.Body>
-          <Row>
-            {Object.entries(usageByModel).map(([model, amount]) => (
-              <Col key={model} md={6} lg={4} className="mb-3">
-                <div className="d-flex justify-content-between align-items-center">
-                  <span className="fw-bold">{model}</span>
-                  <span>{formatCurrency(amount)}</span>
-                </div>
-                <ProgressBar 
-                  now={(amount / totalCost) * 100} 
-                  className="mt-1"
-                  variant="info"
-                />
-              </Col>
-            ))}
-          </Row>
-        </Card.Body>
-      </Card>
+      
 
       {/* Projects Table */}
       <Card>
@@ -241,7 +267,11 @@ const Usage: React.FC = () => {
           </div>
 
           <div className="mt-3 text-muted small">
-            Son 30 günlük kullanım verileri - {formatDate(new Date())} tarihine kadar
+            {selectedDateRange && (
+              <>
+                {formatDateRange(selectedDateRange.startDate, selectedDateRange.endDate)} tarih aralığındaki kullanım verileri
+              </>
+            )}
           </div>
         </Card.Body>
       </Card>

@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import logging
 from functools import wraps
 from dotenv import load_dotenv
+from flask_caching import Cache
 
 # Load environment variables from .env file
 load_dotenv()
@@ -26,6 +27,11 @@ app = Flask(__name__, static_folder="build", static_url_path="")
 # Configuration
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENAI_ORG_ID = os.getenv("OPENAI_ORG_ID", None)
+
+# Cache configuration
+app.config["CACHE_TYPE"] = "simple"
+app.config["CACHE_DEFAULT_TIMEOUT"] = 3600  # 1 hour in seconds
+cache = Cache(app)
 
 # OpenAI API endpoints
 OPENAI_USAGE_URL = "https://api.openai.com/v1/usage"
@@ -65,6 +71,16 @@ def get_openai_headers():
     return headers
 
 
+def generate_cache_key(endpoint: str, params: dict = None) -> str:
+    """Generate a unique cache key based on endpoint and parameters"""
+    import json
+    import hashlib
+
+    key_data = {"endpoint": endpoint, "params": params or {}}
+    key_string = json.dumps(key_data, sort_keys=True)
+    return hashlib.md5(key_string.encode()).hexdigest()
+
+
 @app.route("/")
 def serve():
     return send_from_directory(app.static_folder, "index.html")
@@ -78,6 +94,35 @@ def health_check():
             "status": "healthy",
             "timestamp": datetime.now().isoformat(),
             "api_key_configured": bool(OPENAI_API_KEY),
+            "cache_info": {
+                "cache_type": app.config["CACHE_TYPE"],
+                "cache_timeout_hours": app.config["CACHE_DEFAULT_TIMEOUT"] / 3600,
+            },
+        }
+    )
+
+
+@app.route("/cache/clear", methods=["POST"])
+def clear_cache():
+    """Clear all cached data"""
+    cache.clear()
+    logger.info("Cache cleared successfully.")
+    return jsonify(
+        {
+            "message": "Cache cleared successfully",
+            "timestamp": datetime.now().isoformat(),
+        }
+    )
+
+
+@app.route("/cache/status", methods=["GET"])
+def cache_status():
+    """Get detailed cache status"""
+    return jsonify(
+        {
+            "cache_type": app.config["CACHE_TYPE"],
+            "cache_timeout_hours": app.config["CACHE_DEFAULT_TIMEOUT"] / 3600,
+            "timestamp": datetime.now().isoformat(),
         }
     )
 
@@ -235,6 +280,18 @@ def get_costs():
                 400,
             )
 
+        # Normalize end_time to end of day for better caching
+        if end_time:
+            # Convert end_time to datetime and set to end of day (23:59:59)
+            end_datetime = datetime.fromtimestamp(int(end_time))
+            end_of_day = end_datetime.replace(
+                hour=23, minute=59, second=59, microsecond=999999
+            )
+            normalized_end_time = int(end_of_day.timestamp())
+        else:
+            # If no end_time provided, use current time
+            normalized_end_time = int(datetime.now().timestamp())
+
         # Build request parameters
         params = {
             "start_time": start_time,
@@ -242,8 +299,8 @@ def get_costs():
             "limit": limit,
         }
 
-        if end_time:
-            params["end_time"] = end_time
+        # Always use normalized end_time for consistent caching
+        params["end_time"] = normalized_end_time
 
         if group_by:
             params["group_by"] = group_by
@@ -254,12 +311,29 @@ def get_costs():
         if project_ids:
             params["project_ids"] = project_ids
 
+        # Generate cache key based on normalized parameters only
+        cache_key = generate_cache_key("/costs", params)
+
+        # Check cache first
+        cached_response = cache.get(cache_key)
+        if cached_response:
+            logger.info(f"Cache hit for key: {cache_key}")
+            return jsonify(cached_response)
+
+            # If not in cache, make API request
         response = requests.get(
-            OPENAI_COSTS_URL, headers=get_openai_headers(), params=params, timeout=60
+            OPENAI_COSTS_URL,
+            headers=get_openai_headers(),
+            params=params,
+            timeout=60,
         )
 
         if response.status_code == 200:
-            return jsonify(response.json())
+            response_data = response.json()
+            # Cache the successful response
+            cache.set(cache_key, response_data)
+            logger.info(f"Cached response for key: {cache_key}")
+            return jsonify(response_data)
         else:
             logger.error(f"OpenAI API error: {response.status_code} - {response.text}")
             return (
@@ -299,12 +373,26 @@ def get_projects():
         if after:
             params["after"] = after
 
+        # Generate cache key based on all parameters
+        cache_key = generate_cache_key("/projects", params)
+
+        # Check cache first
+        cached_response = cache.get(cache_key)
+        if cached_response:
+            logger.info(f"Cache hit for key: {cache_key}")
+            return jsonify(cached_response)
+
+        # If not in cache, make API request
         response = requests.get(
             OPENAI_PROJECTS_URL, headers=get_openai_headers(), params=params, timeout=30
         )
 
         if response.status_code == 200:
-            return jsonify(response.json())
+            response_data = response.json()
+            # Cache the successful response
+            cache.set(cache_key, response_data)
+            logger.info(f"Cached response for key: {cache_key}")
+            return jsonify(response_data)
         else:
             logger.error(f"OpenAI API error: {response.status_code} - {response.text}")
             return (
@@ -406,26 +494,5 @@ def internal_error(error):
     return jsonify({"error": "Internal server error"}), 500
 
 
-if __name__ == "__main__":
-    # Check if API key is configured
-    if not OPENAI_API_KEY:
-        print("⚠️  UYARI: OPENAI_API_KEY bulunamadı!")
-        print("=" * 50)
-        print("API anahtarınızı ayarlamak için:")
-        print("1. .env dosyası oluşturun: cp env.example .env")
-        print("2. .env dosyasını düzenleyin ve API anahtarınızı ekleyin")
-        print("3. Veya environment variable olarak ayarlayın:")
-        print("   Windows: $env:OPENAI_API_KEY='your-api-key'")
-        print("   Linux/Mac: export OPENAI_API_KEY='your-api-key'")
-        print("=" * 50)
-        print(
-            "Uygulama API anahtarı olmadan çalışacak ancak OpenAI API çağrıları başarısız olacak."
-        )
-        print()
-
-    # Run the Flask app
-    print("🚀 Flask uygulaması başlatılıyor...")
-    print("📱 Frontend: http://localhost:5000")
-    print("🔧 API Endpoints: http://localhost:5000/health")
-    print("=" * 50)
+if __name__ == "__main__":  #
     app.run(debug=True, host="0.0.0.0", port=5000)

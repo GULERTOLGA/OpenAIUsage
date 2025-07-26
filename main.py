@@ -1,15 +1,27 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import requests
 import os
 from datetime import datetime, timedelta
 import logging
 from functools import wraps
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Debug: Check if .env file is loaded
+print(f"🔍 .env dosyası yüklendi mi: {os.path.exists('.env')}")
+print(
+    f"🔑 OPENAI_API_KEY mevcut mu: {'Evet' if os.getenv('OPENAI_API_KEY') else 'Hayır'}"
+)
+if os.getenv("OPENAI_API_KEY"):
+    print(f"🔑 API Key uzunluğu: {len(os.getenv('OPENAI_API_KEY', ''))} karakter")
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="build", static_url_path="")
 
 # Configuration
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -51,6 +63,11 @@ def get_openai_headers():
     if OPENAI_ORG_ID:
         headers["OpenAI-Organization"] = OPENAI_ORG_ID
     return headers
+
+
+@app.route("/")
+def serve():
+    return send_from_directory(app.static_folder, "index.html")
 
 
 @app.route("/health", methods=["GET"])
@@ -388,9 +405,23 @@ def internal_error(error):
 if __name__ == "__main__":
     # Check if API key is configured
     if not OPENAI_API_KEY:
-        print("Warning: OPENAI_API_KEY environment variable is not set!")
-        print("Please set it before running the application.")
-        print("Example: export OPENAI_API_KEY='your-api-key-here'")
+        print("⚠️  UYARI: OPENAI_API_KEY bulunamadı!")
+        print("=" * 50)
+        print("API anahtarınızı ayarlamak için:")
+        print("1. .env dosyası oluşturun: cp env.example .env")
+        print("2. .env dosyasını düzenleyin ve API anahtarınızı ekleyin")
+        print("3. Veya environment variable olarak ayarlayın:")
+        print("   Windows: $env:OPENAI_API_KEY='your-api-key'")
+        print("   Linux/Mac: export OPENAI_API_KEY='your-api-key'")
+        print("=" * 50)
+        print(
+            "Uygulama API anahtarı olmadan çalışacak ancak OpenAI API çağrıları başarısız olacak."
+        )
+        print()
 
     # Run the Flask app
+    print("🚀 Flask uygulaması başlatılıyor...")
+    print("📱 Frontend: http://localhost:5000")
+    print("🔧 API Endpoints: http://localhost:5000/health")
+    print("=" * 50)
     app.run(debug=True, host="0.0.0.0", port=5000)

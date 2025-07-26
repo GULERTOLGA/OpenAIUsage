@@ -1,0 +1,1318 @@
+{
+  "data": [
+    {
+      "end_time": 1752278400,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.72888
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.0531025
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.155935
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_CWsLZi3NvJkdoeQv2kXuTaNO"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.617515
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.6847775
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.063715
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.24982
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1752192000
+    },
+    {
+      "end_time": 1752364800,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.7552
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.6473875
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.4127525
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.5801025
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.76594
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.23123
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1752278400
+    },
+    {
+      "end_time": 1752451200,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.19634
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.30152
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3165075
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.362365
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.302885
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.07725
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1752364800
+    },
+    {
+      "end_time": 1752537600,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.94815
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.1035455
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_9G6qqmWd9b51B9NHRuucXLow"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.434225
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.7052575
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.91276
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.1134075
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.0301575
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_xUXBi2ggosJbi7AXtYKr8V7U"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3246575
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1752451200
+    },
+    {
+      "end_time": 1752624000,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.762285
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.37890855
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_9G6qqmWd9b51B9NHRuucXLow"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.222255
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.27573
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.689315
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.092185
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.01337
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_xUXBi2ggosJbi7AXtYKr8V7U"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3288725
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1752537600
+    },
+    {
+      "end_time": 1752710400,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.092705
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.14096292
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_9G6qqmWd9b51B9NHRuucXLow"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.6131525
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.0599275
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_CWsLZi3NvJkdoeQv2kXuTaNO"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.762335
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.05282
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.3329075
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.40382
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1752624000
+    },
+    {
+      "end_time": 1752796800,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.19483
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.02233035
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_9G6qqmWd9b51B9NHRuucXLow"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.7189425
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.941325
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.687315
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.19297
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.08003
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_xUXBi2ggosJbi7AXtYKr8V7U"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.285615
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1752710400
+    },
+    {
+      "end_time": 1752883200,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.70621
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.525417
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_9G6qqmWd9b51B9NHRuucXLow"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.2157025
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.25424874
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_CWsLZi3NvJkdoeQv2kXuTaNO"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.6404275
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.7710725
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.29222
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.020325
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_xUXBi2ggosJbi7AXtYKr8V7U"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.174655
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1752796800
+    },
+    {
+      "end_time": 1752969600,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.390715
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.8682975
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3291475
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.2322475
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.6355175
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.41752
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1752883200
+    },
+    {
+      "end_time": 1753056000,
+      "object": "bucket",
+      "results": [],
+      "start_time": 1752969600
+    },
+    {
+      "end_time": 1753142400,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.9863575
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.66106079
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_9G6qqmWd9b51B9NHRuucXLow"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.912
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.7082975
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.120435
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.0916325
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.0638
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_xUXBi2ggosJbi7AXtYKr8V7U"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3197875
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.00000388
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_CWsLZi3NvJkdoeQv2kXuTaNO"
+        }
+      ],
+      "start_time": 1753056000
+    },
+    {
+      "end_time": 1753228800,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.8524925
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.08411335
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_9G6qqmWd9b51B9NHRuucXLow"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.43174
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3155015
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_CWsLZi3NvJkdoeQv2kXuTaNO"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.89444
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.0514825
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.1766925
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.05081
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_xUXBi2ggosJbi7AXtYKr8V7U"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3537475
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1753142400
+    },
+    {
+      "end_time": 1753315200,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.025165
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 2.1373724
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_9G6qqmWd9b51B9NHRuucXLow"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.3939725
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.90938772
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_CWsLZi3NvJkdoeQv2kXuTaNO"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.821345
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.0871975
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_tlCfEDSnMXkYjOmwGnqMX7mL"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.0667875
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.295415
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.0637925
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_xUXBi2ggosJbi7AXtYKr8V7U"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3043075
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1753228800
+    },
+    {
+      "end_time": 1753401600,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3760039
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.78413344
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_9G6qqmWd9b51B9NHRuucXLow"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.4506291
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.23382264
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_CWsLZi3NvJkdoeQv2kXuTaNO"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.2401898
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.0489049
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_tlCfEDSnMXkYjOmwGnqMX7mL"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3327477
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.38483425
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.0327604
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_xUXBi2ggosJbi7AXtYKr8V7U"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.11959315
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1753315200
+    },
+    {
+      "end_time": 1753488000,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.34771265
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.11851655
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_9G6qqmWd9b51B9NHRuucXLow"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3806369
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3102905
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.01270955
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_tlCfEDSnMXkYjOmwGnqMX7mL"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.2532099
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.3552752
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.08107495
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.0014265
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_xUXBi2ggosJbi7AXtYKr8V7U"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 1.6e-7
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_CWsLZi3NvJkdoeQv2kXuTaNO"
+        }
+      ],
+      "start_time": 1753401600
+    },
+    {
+      "end_time": 1753574400,
+      "object": "bucket",
+      "results": [
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.03777175
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_38P1yTjJqKajT6qC1vJEccli"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.05585255
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_BOo2Avzsy9WtTxVEPC0SH4u1"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.0561716
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_lwikNCsxcRLRIzQl8RSEBL0t"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.02009425
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_UU24QtOMdYOXGzBsvWqj6lKl"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.07037455
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_wDi1lUmSqHOTrRoUNZL3Grmj"
+        },
+        {
+          "amount": {
+            "currency": "usd",
+            "value": 0.0295882
+          },
+          "line_item": null,
+          "object": "organization.costs.result",
+          "organization_id": "org-cy8hctK1kDo7bVJnNTyUzF4a",
+          "project_id": "proj_ZcSAta8PTyoqf5pj0OrgfKqS"
+        }
+      ],
+      "start_time": 1753488000
+    }
+  ],
+  "has_more": false,
+  "next_page": null,
+  "object": "page"
+}

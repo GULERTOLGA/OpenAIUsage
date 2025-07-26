@@ -4,21 +4,63 @@ Bu Flask uygulaması, OpenAI kullanım API'sine erişim sağlayan bir REST API s
 
 ## Özellikler
 
+### Backend (Flask API)
 - OpenAI kullanım verilerini görüntüleme
 - Abonelik bilgilerini alma
 - Faturalama kullanımını görüntüleme
+- Maliyet verilerini alma
+- Projeler listesini alma
 - Kullanım özeti alma
 - Hata yönetimi ve loglama
 - API anahtarı doğrulama
 
+### Frontend (React TypeScript)
+- Modern ve responsive Bootstrap UI
+- TypeScript ile tip güvenliği
+- React ile dinamik kullanıcı arayüzü
+- Navigation menüsü ve sayfa yönlendirme
+- Projeler sayfası ile DataTable benzeri tablo
+- Arama ve sayfalama özellikleri
+- API entegrasyonu için hazır yapı
+
 ## Kurulum
 
-1. Gerekli paketleri yükleyin:
+### Backend (Flask API)
+
+1. Python bağımlılıklarını yükleyin:
 ```bash
 pip install -r requirements.txt
 ```
 
-2. OpenAI API anahtarınızı ayarlayın:
+2. Environment dosyasını kurun:
+
+**Windows:**
+```bash
+setup_env.bat
+```
+
+**Linux/Mac:**
+```bash
+chmod +x setup_env.sh
+./setup_env.sh
+```
+
+3. OpenAI API anahtarınızı ayarlayın:
+
+**Seçenek 1: .env dosyası kullanarak (Önerilen)**
+```bash
+# env.example dosyasını .env olarak kopyalayın
+cp env.example .env
+
+# .env dosyasını düzenleyin ve API anahtarınızı ekleyin
+# Windows
+notepad .env
+
+# Linux/Mac
+nano .env
+```
+
+**Seçenek 2: Environment variable olarak**
 ```bash
 # Windows PowerShell
 $env:OPENAI_API_KEY="your-api-key-here"
@@ -35,10 +77,44 @@ export OPENAI_API_KEY="your-api-key-here"
 $env:OPENAI_ORG_ID="your-org-id-here"
 ```
 
+### Frontend (React TypeScript)
+
+1. Node.js bağımlılıklarını yükleyin:
+```bash
+npm install
+```
+
+2. Geliştirme modunda çalıştırın:
+```bash
+npm start
+```
+
 ## Çalıştırma
 
+### Hızlı Başlangıç (Tüm Uygulama)
+
+**Windows:**
+```bash
+start.bat
+```
+
+**Linux/Mac:**
+```bash
+chmod +x start.sh
+./start.sh
+```
+
+### Manuel Çalıştırma
+
+1. Backend'i çalıştırın:
 ```bash
 python main.py
+```
+
+2. Frontend'i build edin ve çalıştırın:
+```bash
+npm install
+npm run build
 ```
 
 Uygulama varsayılan olarak `http://localhost:5000` adresinde çalışacaktır.

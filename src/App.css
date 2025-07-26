@@ -1,0 +1,13 @@
+.App {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
+
+.alert {
+  max-width: 800px;
+  margin: 0 auto;
+} 

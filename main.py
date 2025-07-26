@@ -102,7 +102,7 @@ def get_usage():
 
         # Make request to OpenAI usage API
         response = requests.get(
-            OPENAI_USAGE_URL, headers=get_openai_headers(), params=params
+            OPENAI_USAGE_URL, headers=get_openai_headers(), params=params, timeout=30
         )
 
         if response.status_code == 200:
@@ -135,7 +135,9 @@ def get_usage():
 def get_subscription():
     """Get OpenAI subscription information"""
     try:
-        response = requests.get(OPENAI_SUBSCRIPTION_URL, headers=get_openai_headers())
+        response = requests.get(
+            OPENAI_SUBSCRIPTION_URL, headers=get_openai_headers(), timeout=30
+        )
 
         if response.status_code == 200:
             return jsonify(response.json())
@@ -180,7 +182,7 @@ def get_billing():
         params = {"start_date": start_date, "end_date": end_date}
 
         response = requests.get(
-            OPENAI_BILLING_URL, headers=get_openai_headers(), params=params
+            OPENAI_BILLING_URL, headers=get_openai_headers(), params=params, timeout=30
         )
 
         if response.status_code == 200:
@@ -253,7 +255,7 @@ def get_costs():
             params["project_ids"] = project_ids
 
         response = requests.get(
-            OPENAI_COSTS_URL, headers=get_openai_headers(), params=params
+            OPENAI_COSTS_URL, headers=get_openai_headers(), params=params, timeout=60
         )
 
         if response.status_code == 200:
@@ -298,7 +300,7 @@ def get_projects():
             params["after"] = after
 
         response = requests.get(
-            OPENAI_PROJECTS_URL, headers=get_openai_headers(), params=params
+            OPENAI_PROJECTS_URL, headers=get_openai_headers(), params=params, timeout=30
         )
 
         if response.status_code == 200:
@@ -338,7 +340,7 @@ def get_usage_summary():
 
         # Get subscription info
         subscription_response = requests.get(
-            OPENAI_SUBSCRIPTION_URL, headers=get_openai_headers()
+            OPENAI_SUBSCRIPTION_URL, headers=get_openai_headers(), timeout=30
         )
 
         # Get billing info
@@ -346,6 +348,7 @@ def get_usage_summary():
             OPENAI_BILLING_URL,
             headers=get_openai_headers(),
             params={"start_date": start_date, "end_date": end_date},
+            timeout=30,
         )
 
         # Get costs info - convert dates to Unix timestamps
@@ -356,6 +359,7 @@ def get_usage_summary():
             OPENAI_COSTS_URL,
             headers=get_openai_headers(),
             params={"start_time": start_timestamp, "end_time": end_timestamp},
+            timeout=60,
         )
 
         summary = {

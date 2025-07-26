@@ -10,13 +10,6 @@ from flask_caching import Cache
 # Load environment variables from .env file
 load_dotenv()
 
-# Debug: Check if .env file is loaded
-print(f"🔍 .env dosyası yüklendi mi: {os.path.exists('.env')}")
-print(
-    f"🔑 OPENAI_API_KEY mevcut mu: {'Evet' if os.getenv('OPENAI_API_KEY') else 'Hayır'}"
-)
-if os.getenv("OPENAI_API_KEY"):
-    print(f"🔑 API Key uzunluğu: {len(os.getenv('OPENAI_API_KEY', ''))} karakter")
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -34,9 +27,6 @@ app.config["CACHE_DEFAULT_TIMEOUT"] = 3600  # 1 hour in seconds
 cache = Cache(app)
 
 # OpenAI API endpoints
-OPENAI_USAGE_URL = "https://api.openai.com/v1/usage"
-OPENAI_SUBSCRIPTION_URL = "https://api.openai.com/v1/dashboard/billing/subscription"
-OPENAI_BILLING_URL = "https://api.openai.com/v1/dashboard/billing/usage"
 OPENAI_COSTS_URL = "https://api.openai.com/v1/organization/costs"
 OPENAI_PROJECTS_URL = "https://api.openai.com/v1/organization/projects"
 
@@ -84,175 +74,6 @@ def generate_cache_key(endpoint: str, params: dict = None) -> str:
 @app.route("/")
 def serve():
     return send_from_directory(app.static_folder, "index.html")
-
-
-@app.route("/health", methods=["GET"])
-def health_check():
-    """Health check endpoint"""
-    return jsonify(
-        {
-            "status": "healthy",
-            "timestamp": datetime.now().isoformat(),
-            "api_key_configured": bool(OPENAI_API_KEY),
-            "cache_info": {
-                "cache_type": app.config["CACHE_TYPE"],
-                "cache_timeout_hours": app.config["CACHE_DEFAULT_TIMEOUT"] / 3600,
-            },
-        }
-    )
-
-
-@app.route("/cache/clear", methods=["POST"])
-def clear_cache():
-    """Clear all cached data"""
-    cache.clear()
-    logger.info("Cache cleared successfully.")
-    return jsonify(
-        {
-            "message": "Cache cleared successfully",
-            "timestamp": datetime.now().isoformat(),
-        }
-    )
-
-
-@app.route("/cache/status", methods=["GET"])
-def cache_status():
-    """Get detailed cache status"""
-    return jsonify(
-        {
-            "cache_type": app.config["CACHE_TYPE"],
-            "cache_timeout_hours": app.config["CACHE_DEFAULT_TIMEOUT"] / 3600,
-            "timestamp": datetime.now().isoformat(),
-        }
-    )
-
-
-@app.route("/usage", methods=["GET"])
-@require_api_key
-def get_usage():
-    """Get OpenAI usage data"""
-    try:
-        # Get query parameters
-        date = request.args.get("date", datetime.now().strftime("%Y-%m-%d"))
-        start_date = request.args.get("start_date")
-        end_date = request.args.get("end_date")
-
-        # Build request parameters
-        params = {}
-        if start_date and end_date:
-            params["start_date"] = start_date
-            params["end_date"] = end_date
-        else:
-            params["date"] = date
-
-        # Make request to OpenAI usage API
-        response = requests.get(
-            OPENAI_USAGE_URL, headers=get_openai_headers(), params=params, timeout=30
-        )
-
-        if response.status_code == 200:
-            return jsonify(response.json())
-        else:
-            logger.error(f"OpenAI API error: {response.status_code} - {response.text}")
-            return (
-                jsonify(
-                    {
-                        "error": f"OpenAI API error: {response.status_code}",
-                        "details": response.text,
-                    }
-                ),
-                response.status_code,
-            )
-
-    except requests.exceptions.RequestException as e:
-        logger.error(f"Request error: {str(e)}")
-        return (
-            jsonify({"error": "Failed to connect to OpenAI API", "details": str(e)}),
-            500,
-        )
-    except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
-        return jsonify({"error": "Internal server error", "details": str(e)}), 500
-
-
-@app.route("/subscription", methods=["GET"])
-@require_api_key
-def get_subscription():
-    """Get OpenAI subscription information"""
-    try:
-        response = requests.get(
-            OPENAI_SUBSCRIPTION_URL, headers=get_openai_headers(), timeout=30
-        )
-
-        if response.status_code == 200:
-            return jsonify(response.json())
-        else:
-            logger.error(f"OpenAI API error: {response.status_code} - {response.text}")
-            return (
-                jsonify(
-                    {
-                        "error": f"OpenAI API error: {response.status_code}",
-                        "details": response.text,
-                    }
-                ),
-                response.status_code,
-            )
-
-    except requests.exceptions.RequestException as e:
-        logger.error(f"Request error: {str(e)}")
-        return (
-            jsonify({"error": "Failed to connect to OpenAI API", "details": str(e)}),
-            500,
-        )
-    except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
-        return jsonify({"error": "Internal server error", "details": str(e)}), 500
-
-
-@app.route("/billing", methods=["GET"])
-@require_api_key
-def get_billing():
-    """Get OpenAI billing usage"""
-    try:
-        # Get query parameters
-        start_date = request.args.get("start_date")
-        end_date = request.args.get("end_date")
-
-        if not start_date or not end_date:
-            # Default to current month
-            today = datetime.now()
-            start_date = today.replace(day=1).strftime("%Y-%m-%d")
-            end_date = today.strftime("%Y-%m-%d")
-
-        params = {"start_date": start_date, "end_date": end_date}
-
-        response = requests.get(
-            OPENAI_BILLING_URL, headers=get_openai_headers(), params=params, timeout=30
-        )
-
-        if response.status_code == 200:
-            return jsonify(response.json())
-        else:
-            logger.error(f"OpenAI API error: {response.status_code} - {response.text}")
-            return (
-                jsonify(
-                    {
-                        "error": f"OpenAI API error: {response.status_code}",
-                        "details": response.text,
-                    }
-                ),
-                response.status_code,
-            )
-
-    except requests.exceptions.RequestException as e:
-        logger.error(f"Request error: {str(e)}")
-        return (
-            jsonify({"error": "Failed to connect to OpenAI API", "details": str(e)}),
-            500,
-        )
-    except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}")
-        return jsonify({"error": "Internal server error", "details": str(e)}), 500
 
 
 @app.route("/costs", methods=["GET"])
@@ -320,7 +141,7 @@ def get_costs():
             logger.info(f"Cache hit for key: {cache_key}")
             return jsonify(cached_response)
 
-            # If not in cache, make API request
+        # If not in cache, make API request
         response = requests.get(
             OPENAI_COSTS_URL,
             headers=get_openai_headers(),
@@ -414,74 +235,6 @@ def get_projects():
     except Exception as e:
         logger.error(f"Unexpected error: {str(e)}")
         return jsonify({"error": "Internal server error", "details": str(e)}), 500
-
-
-@app.route("/summary", methods=["GET"])
-@require_api_key
-def get_usage_summary():
-    """Get a summary of OpenAI usage and billing"""
-    try:
-        # Get current month usage
-        today = datetime.now()
-        start_date = today.replace(day=1).strftime("%Y-%m-%d")
-        end_date = today.strftime("%Y-%m-%d")
-
-        # Get subscription info
-        subscription_response = requests.get(
-            OPENAI_SUBSCRIPTION_URL, headers=get_openai_headers(), timeout=30
-        )
-
-        # Get billing info
-        billing_response = requests.get(
-            OPENAI_BILLING_URL,
-            headers=get_openai_headers(),
-            params={"start_date": start_date, "end_date": end_date},
-            timeout=30,
-        )
-
-        # Get costs info - convert dates to Unix timestamps
-        start_timestamp = int(datetime.strptime(start_date, "%Y-%m-%d").timestamp())
-        end_timestamp = int(datetime.strptime(end_date, "%Y-%m-%d").timestamp())
-
-        costs_response = requests.get(
-            OPENAI_COSTS_URL,
-            headers=get_openai_headers(),
-            params={"start_time": start_timestamp, "end_time": end_timestamp},
-            timeout=60,
-        )
-
-        summary = {
-            "period": {"start_date": start_date, "end_date": end_date},
-            "subscription": None,
-            "billing": None,
-            "costs": None,
-            "errors": [],
-        }
-
-        if subscription_response.status_code == 200:
-            summary["subscription"] = subscription_response.json()
-        else:
-            summary["errors"].append(
-                f"Subscription API error: {subscription_response.status_code}"
-            )
-
-        if billing_response.status_code == 200:
-            summary["billing"] = billing_response.json()
-        else:
-            summary["errors"].append(
-                f"Billing API error: {billing_response.status_code}"
-            )
-
-        if costs_response.status_code == 200:
-            summary["costs"] = costs_response.json()
-        else:
-            summary["errors"].append(f"Costs API error: {costs_response.status_code}")
-
-        return jsonify(summary)
-
-    except Exception as e:
-        logger.error(f"Summary error: {str(e)}")
-        return jsonify({"error": "Failed to get usage summary", "details": str(e)}), 500
 
 
 @app.errorhandler(404)

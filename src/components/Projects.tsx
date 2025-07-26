@@ -46,14 +46,14 @@ const Projects: React.FC = () => {
       setError(null);
     } catch (err) {
       console.error('Error fetching projects:', err);
-      setError('Projeler yüklenirken bir hata oluştu.');
+      setError('An error occurred while loading projects.');
     } finally {
       setLoading(false);
     }
   };
 
   const formatDate = (timestamp: number) => {
-    return new Date(timestamp * 1000).toLocaleDateString('tr-TR', {
+    return new Date(timestamp * 1000).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric',
@@ -64,12 +64,12 @@ const Projects: React.FC = () => {
 
   const getStatusBadge = (project: Project) => {
     if (project.archived) {
-      return <Badge bg="secondary">Arşivlenmiş</Badge>;
+      return <Badge bg="secondary">Archived</Badge>;
     }
     if (project.status === 'active') {
-      return <Badge bg="success">Aktif</Badge>;
+      return <Badge bg="success">Active</Badge>;
     }
-    return <Badge bg="primary">Aktif</Badge>;
+    return <Badge bg="primary">Active</Badge>;
   };
 
   const getPermissionBadge = (permission?: string) => {
@@ -77,11 +77,11 @@ const Projects: React.FC = () => {
       case 'admin':
         return <Badge bg="danger">Admin</Badge>;
       case 'read_write':
-        return <Badge bg="warning" text="dark">Yazma</Badge>;
+        return <Badge bg="warning" text="dark">Write</Badge>;
       case 'read_only':
-        return <Badge bg="info">Salt Okunur</Badge>;
+        return <Badge bg="info">Read Only</Badge>;
       default:
-        return <Badge bg="light" text="dark">Bilinmiyor</Badge>;
+        return <Badge bg="light" text="dark">Unknown</Badge>;
     }
   };
 
@@ -108,9 +108,9 @@ const Projects: React.FC = () => {
       <Container className="mt-4">
         <div className="text-center">
           <Spinner animation="border" role="status">
-            <span className="visually-hidden">Yükleniyor...</span>
+            <span className="visually-hidden">Loading...</span>
           </Spinner>
-          <p className="mt-2">Projeler yükleniyor...</p>
+          <p className="mt-2">Loading projects...</p>
         </div>
       </Container>
     );
@@ -120,7 +120,7 @@ const Projects: React.FC = () => {
     return (
       <Container className="mt-4">
         <Alert variant="danger">
-          <Alert.Heading>Hata!</Alert.Heading>
+          <Alert.Heading>Error!</Alert.Heading>
           <p>{error}</p>
         </Alert>
       </Container>
@@ -132,12 +132,12 @@ const Projects: React.FC = () => {
       <Card>
         <Card.Header>
           <div className="d-flex justify-content-between align-items-center">
-            <h4 className="mb-0">Projeler</h4>
+            <h4 className="mb-0">Projects</h4>
             <button 
               className="btn btn-outline-primary btn-sm"
               onClick={fetchProjects}
             >
-              Yenile
+              Refresh
             </button>
           </div>
         </Card.Header>
@@ -146,7 +146,7 @@ const Projects: React.FC = () => {
           <div className="mb-3">
             <Form.Control
               type="text"
-              placeholder="Projelerde ara..."
+              placeholder="Search in projects..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -157,12 +157,12 @@ const Projects: React.FC = () => {
             <Table striped bordered hover>
               <thead className="table-dark">
                 <tr>
-                  <th>Proje Adı</th>
+                  <th>Project Name</th>
                   <th>ID</th>
-                  <th>Durum</th>
-                  <th>İzin</th>
-                  <th>Oluşturulma</th>
-                  <th>Güncellenme</th>
+                  <th>Status</th>
+                  <th>Permission</th>
+                  <th>Created</th>
+                  <th>Updated</th>
                 </tr>
               </thead>
               <tbody>
@@ -170,7 +170,7 @@ const Projects: React.FC = () => {
                   <tr key={project.id}>
                     <td>
                       <div>
-                        <strong>{project.title || project.name || 'İsimsiz Proje'}</strong>
+                        <strong>{project.title || project.name || 'Unnamed Project'}</strong>
                         {project.description && (
                           <div className="text-muted small">{project.description}</div>
                         )}
@@ -194,10 +194,10 @@ const Projects: React.FC = () => {
             <div className="d-flex justify-content-between align-items-center mt-3">
               <div>
                 <span className="me-2">
-                  Sayfa <strong>{currentPage}</strong> / <strong>{totalPages}</strong>
+                  Page <strong>{currentPage}</strong> / <strong>{totalPages}</strong>
                 </span>
                 <span className="text-muted">
-                  ({filteredProjects.length} proje bulundu)
+                  ({filteredProjects.length} projects found)
                 </span>
               </div>
               <Pagination>
@@ -237,7 +237,7 @@ const Projects: React.FC = () => {
 
           {totalPages <= 1 && (
             <div className="mt-2 text-muted small">
-              Toplam {filteredProjects.length} proje bulundu.
+              Total {filteredProjects.length} projects found.
             </div>
           )}
         </Card.Body>

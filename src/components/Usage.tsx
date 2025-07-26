@@ -14,8 +14,8 @@ const Usage: React.FC = () => {
   const [dateRanges] = useState<DateRange[]>(getDateRanges());
 
   useEffect(() => {
-    // Varsayılan olarak "Bu Ay" seçeneğini seç
-    const defaultRange = dateRanges.find(range => range.label === "Bu Ay");
+    // Default to "This Month" option
+    const defaultRange = dateRanges.find(range => range.label === "This Month");
     setSelectedDateRange(defaultRange || null);
   }, [dateRanges]);
 
@@ -40,7 +40,7 @@ const Usage: React.FC = () => {
       // Then, fetch usage data
       console.log('Fetching usage data...');
       const daysDiff = Math.ceil((selectedDateRange.endTime - selectedDateRange.startTime) / (24 * 60 * 60));
-      const limit = Math.max(daysDiff, 31); // En az 31 gün, maksimum seçilen aralık kadar
+      const limit = Math.max(daysDiff, 31); // At least 31 days, maximum selected range
       
       const usageResponse = await api.get<CostsApiResponse>('/costs', {
         params: {
@@ -57,14 +57,14 @@ const Usage: React.FC = () => {
       setError(null);
     } catch (err) {
       console.error('Error fetching data:', err);
-      setError('Veriler yüklenirken bir hata oluştu.');
+      setError('An error occurred while loading data.');
     } finally {
       setLoading(false);
     }
   };
 
   const formatCurrency = (amount: number): string => {
-    return new Intl.NumberFormat('tr-TR', {
+    return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
       minimumFractionDigits: 2,
@@ -74,7 +74,7 @@ const Usage: React.FC = () => {
 
   const formatDate = (dateInput: string | Date): string => {
     const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
-    return date.toLocaleDateString('tr-TR', {
+    return date.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'short',
       day: 'numeric'
@@ -86,9 +86,9 @@ const Usage: React.FC = () => {
       <Container className="mt-4">
         <div className="text-center">
           <Spinner animation="border" role="status">
-            <span className="visually-hidden">Yükleniyor...</span>
+            <span className="visually-hidden">Loading...</span>
           </Spinner>
-          <p className="mt-2">Kullanım verileri yükleniyor...</p>
+          <p className="mt-2">Loading usage data...</p>
         </div>
       </Container>
     );
@@ -98,7 +98,7 @@ const Usage: React.FC = () => {
     return (
       <Container className="mt-4">
         <Alert variant="danger">
-          <Alert.Heading>Hata!</Alert.Heading>
+          <Alert.Heading>Error!</Alert.Heading>
           <p>{error}</p>
         </Alert>
       </Container>
@@ -109,11 +109,11 @@ const Usage: React.FC = () => {
     return (
       <Container className="mt-4">
         <Alert variant="info">
-          <Alert.Heading>Veri Bulunamadı</Alert.Heading>
+          <Alert.Heading>No Data Found</Alert.Heading>
           <p>
             {selectedDateRange 
-              ? `${selectedDateRange.label} döneminde kullanım verisi bulunamadı.`
-              : 'Seçilen dönemde kullanım verisi bulunamadı.'
+              ? `No usage data found for ${selectedDateRange.label} period.`
+              : 'No usage data found for the selected period.'
             }
           </p>
         </Alert>
@@ -132,7 +132,7 @@ const Usage: React.FC = () => {
         <Card.Body>
           <div className="d-flex justify-content-between align-items-center">
             <div>
-              <h5 className="mb-2">Tarih Aralığı</h5>
+              <h5 className="mb-2">Date Range</h5>
               {selectedDateRange && (
                 <small className="text-muted">
                   {formatDateRange(selectedDateRange.startDate, selectedDateRange.endDate)}
@@ -160,10 +160,10 @@ const Usage: React.FC = () => {
         <Col md={4}>
           <Card className="text-center">
             <Card.Body>
-              <Card.Title>Toplam Maliyet</Card.Title>
+              <Card.Title>Total Cost</Card.Title>
               <h3 className="text-primary">{formatCurrency(totalCost)}</h3>
               <small className="text-muted">
-                {selectedDateRange?.label || 'Seçilen dönem'}
+                {selectedDateRange?.label || 'Selected period'}
               </small>
             </Card.Body>
           </Card>
@@ -171,18 +171,18 @@ const Usage: React.FC = () => {
         <Col md={4}>
           <Card className="text-center">
             <Card.Body>
-              <Card.Title>Proje Sayısı</Card.Title>
-              <h3 className="text-success">{usageData.getProjectCount()}</h3>
-              <small className="text-muted">Aktif projeler</small>
+                          <Card.Title>Project Count</Card.Title>
+            <h3 className="text-success">{usageData.getProjectCount()}</h3>
+            <small className="text-muted">Active projects</small>
             </Card.Body>
           </Card>
         </Col>
         <Col md={4}>
           <Card className="text-center">
             <Card.Body>
-              <Card.Title>Model Kullanımı</Card.Title>
-              <h3 className="text-info">{Object.keys(usageByModel).length}</h3>
-              <small className="text-muted">Farklı modeller</small>
+                          <Card.Title>Model Usage</Card.Title>
+            <h3 className="text-info">{Object.keys(usageByModel).length}</h3>
+            <small className="text-muted">Different models</small>
             </Card.Body>
           </Card>
         </Col>
@@ -194,12 +194,12 @@ const Usage: React.FC = () => {
       <Card>
         <Card.Header>
           <div className="d-flex justify-content-between align-items-center">
-            <h5 className="mb-0">Projelere Göre Kullanım</h5>
+            <h5 className="mb-0">Usage by Projects</h5>
             <button 
               className="btn btn-outline-primary btn-sm"
               onClick={fetchData}
             >
-              Yenile
+              Refresh
             </button>
           </div>
         </Card.Header>
@@ -208,12 +208,12 @@ const Usage: React.FC = () => {
             <Table striped bordered hover>
               <thead className="table-dark">
                 <tr>
-                  <th>Proje Adı</th>
-                  <th>Proje ID</th>
-                  <th>Toplam Maliyet</th>
-                  <th>Günlük Ortalama</th>
-                  <th>Model Kullanımı</th>
-                  <th>Gün Sayısı</th>
+                  <th>Project Name</th>
+                  <th>Project ID</th>
+                  <th>Total Cost</th>
+                  <th>Daily Average</th>
+                  <th>Model Usage</th>
+                  <th>Days Count</th>
                 </tr>
               </thead>
               <tbody>
@@ -247,7 +247,7 @@ const Usage: React.FC = () => {
                       <td>
                         <strong>{formatCurrency(project.total_cost)}</strong>
                         <div className="small text-muted">
-                          {((project.total_cost / totalCost) * 100).toFixed(1)}% toplam
+                          {((project.total_cost / totalCost) * 100).toFixed(1)}% of total
                         </div>
                       </td>
                       <td>{formatCurrency(averageDailyCost)}</td>
@@ -269,7 +269,7 @@ const Usage: React.FC = () => {
           <div className="mt-3 text-muted small">
             {selectedDateRange && (
               <>
-                {formatDateRange(selectedDateRange.startDate, selectedDateRange.endDate)} tarih aralığındaki kullanım verileri
+                Usage data for {formatDateRange(selectedDateRange.startDate, selectedDateRange.endDate)} period
               </>
             )}
           </div>

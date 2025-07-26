@@ -4,7 +4,7 @@ import SimpleRouter from './components/SimpleRouter';
 import './App.css';
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('home');
+  const [currentPage, setCurrentPage] = useState('usage');
 
   const handleNavClick = (page: string) => {
     setCurrentPage(page);
@@ -15,19 +15,18 @@ function App() {
       return (
         <Container>
           <div className="text-center">
-            <h1 className="display-4 mb-4">Hoş Geldiniz! 👋</h1>
+            <h1 className="display-4 mb-4">Welcome! 👋</h1>
             <p className="lead">
-              OpenAI Usage API Dashboard'una hoş geldiniz.
+              Welcome to OpenAI Usage API Dashboard.
             </p>
             <div className="alert alert-info" role="alert">
               <h4 className="alert-heading">Hello World! 🌍</h4>
               <p>
-                Bu, OpenAI kullanım ve maliyet verilerinizi takip etmek için geliştirilmiş 
-                bir dashboard uygulamasıdır.
+                This is a dashboard application developed to track your OpenAI usage and cost data.
               </p>
               <hr />
               <p className="mb-0">
-                Üst menüden istediğiniz bölüme erişebilirsiniz.
+                You can access any section from the top menu.
               </p>
             </div>
           </div>
@@ -44,8 +43,8 @@ function App() {
       <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
         <Container>
           <Navbar.Brand 
-            href="#home" 
-            onClick={(e) => { e.preventDefault(); handleNavClick('home'); }}
+            href="#usage" 
+            onClick={(e) => { e.preventDefault(); handleNavClick('usage'); }}
             style={{ cursor: 'pointer' }}
           >
             <strong>OpenAI Usage Dashboard</strong>
@@ -54,55 +53,18 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link 
-                href="#home" 
-                onClick={(e) => { e.preventDefault(); handleNavClick('home'); }}
-                active={currentPage === 'home'}
-              >
-                Ana Sayfa
-              </Nav.Link>
-              <Nav.Link 
                 href="#usage" 
                 onClick={(e) => { e.preventDefault(); handleNavClick('usage'); }}
                 active={currentPage === 'usage'}
               >
-                Kullanım
+                Usage
               </Nav.Link>
               <Nav.Link 
-                href="#billing" 
-                onClick={(e) => { e.preventDefault(); handleNavClick('billing'); }}
-                active={currentPage === 'billing'}
+                href="#projects" 
+                onClick={(e) => { e.preventDefault(); handleNavClick('projects'); }}
+                active={currentPage === 'projects'}
               >
-                Faturalama
-              </Nav.Link>
-              <NavDropdown title="Maliyetler" id="costs-nav-dropdown">
-                <NavDropdown.Item 
-                  href="#costs" 
-                  onClick={(e) => { e.preventDefault(); handleNavClick('costs'); }}
-                >
-                  Maliyet Verileri
-                </NavDropdown.Item>
-                <NavDropdown.Item 
-                  href="#projects" 
-                  onClick={(e) => { e.preventDefault(); handleNavClick('projects'); }}
-                >
-                  Projeler
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item 
-                  href="#summary" 
-                  onClick={(e) => { e.preventDefault(); handleNavClick('summary'); }}
-                >
-                  Özet
-                </NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-            <Nav>
-              <Nav.Link 
-                href="#health" 
-                onClick={(e) => { e.preventDefault(); handleNavClick('health'); }}
-                active={currentPage === 'health'}
-              >
-                Durum
+                Projects
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

@@ -2,6 +2,14 @@
 
 A modern Flask application that provides a REST API for accessing OpenAI usage data with intelligent caching and a React TypeScript frontend.
 
+## 🐳 Docker Hub
+
+**Docker Images:**
+- Backend: `gulertolga/openai-usage-api:latest`
+- Frontend: `gulertolga/openai-usage-frontend:latest`
+
+**Docker Hub Repository:** https://hub.docker.com/r/gulertolga/openai-usage-api
+
 ## Features
 
 ### Backend (Flask API)
@@ -92,12 +100,25 @@ npm run build
 # Set your OpenAI API key
 export OPENAI_API_KEY="your-api-key-here"
 
-# Build and run with Docker
-docker-compose up --build
+# Run with Docker Hub images
+docker-compose up
 
 # Access the application
 # Frontend: http://localhost:3000
 # Backend API: http://localhost:5000
+```
+
+**Alternative: Pull and run directly**
+```bash
+# Pull images from Docker Hub
+docker pull gulertolga/openai-usage-api:latest
+docker pull gulertolga/openai-usage-frontend:latest
+
+# Set environment variable
+export OPENAI_API_KEY="your-api-key-here"
+
+# Run with docker-compose
+docker-compose up
 ```
 
 **For detailed Docker instructions, see [DOCKER.md](DOCKER.md)**

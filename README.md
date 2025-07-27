@@ -80,7 +80,29 @@ npm run build
 
 ## Running the Application
 
-### Quick Start
+### Option 1: Docker (Recommended)
+
+**Prerequisites:**
+- Docker
+- Docker Compose
+- OpenAI API Key
+
+**Quick Start:**
+```bash
+# Set your OpenAI API key
+export OPENAI_API_KEY="your-api-key-here"
+
+# Build and run with Docker
+docker-compose up --build
+
+# Access the application
+# Frontend: http://localhost:3000
+# Backend API: http://localhost:5000
+```
+
+**For detailed Docker instructions, see [DOCKER.md](DOCKER.md)**
+
+### Option 2: Manual Setup
 
 **Windows:**
 ```bash
@@ -93,14 +115,20 @@ chmod +x start.sh
 ./start.sh
 ```
 
-### Manual Running
+### Option 3: Manual Running
 
 1. Start the backend:
 ```bash
 python main.py
 ```
 
-2. The application will be available at `http://localhost:5000`
+2. Build the frontend:
+```bash
+npm install
+npm run build
+```
+
+3. The application will be available at `http://localhost:5000`
 
 ## API Endpoints
 

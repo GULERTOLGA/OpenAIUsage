@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with base configuration
 const api = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? '' : 'http://localhost:5000',
+  baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000',
   timeout: 60000, // Increased from 10000 to 60000 (60 seconds)
   headers: {
     'Content-Type': 'application/json',

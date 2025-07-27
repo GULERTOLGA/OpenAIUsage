@@ -76,6 +76,19 @@ def serve():
     return send_from_directory(app.static_folder, "index.html")
 
 
+@app.route("/api/status")
+def api_status():
+    """API status endpoint"""
+    return jsonify(
+        {
+            "status": "running",
+            "message": "OpenAI Usage API is running",
+            "endpoints": {"costs": "/costs", "projects": "/projects"},
+            "timestamp": datetime.now().isoformat(),
+        }
+    )
+
+
 @app.route("/costs", methods=["GET"])
 @require_api_key
 def get_costs():

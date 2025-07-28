@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 from flask_caching import Cache
 import jwt
 from werkzeug.security import check_password_hash, generate_password_hash
+from database import init_database, verify_user_credentials, get_user_by_username
 
 # Load environment variables from .env file
 load_dotenv()
@@ -43,15 +44,6 @@ cache = Cache(app)
 OPENAI_COSTS_URL = "https://api.openai.com/v1/organization/costs"
 OPENAI_PROJECTS_URL = "https://api.openai.com/v1/organization/projects"
 
-# Temporary user credentials (will be replaced with database later)
-TEMP_USERS = {
-    "admin": {
-        "username": "admin",
-        "password_hash": generate_password_hash("admin"),
-        "role": "admin",
-    }
-}
-
 
 def require_jwt(f):
     """Decorator to check JWT token"""
@@ -77,8 +69,9 @@ def require_jwt(f):
             )
             current_user = payload["username"]
 
-            # Check if user exists
-            if current_user not in TEMP_USERS:
+            # Check if user exists in database
+            user = get_user_by_username(current_user)
+            if not user:
                 return jsonify({"error": "Invalid token"}), 401
 
         except jwt.ExpiredSignatureError:
@@ -147,14 +140,14 @@ def login():
         if not username or not password:
             return jsonify({"error": "Username and password are required"}), 400
 
-        # Check if user exists and password is correct
-        if username in TEMP_USERS and check_password_hash(
-            TEMP_USERS[username]["password_hash"], password
-        ):
+        # Verify credentials using database
+        user = verify_user_credentials(username, password)
+        if user:
             # Generate token
             payload = {
-                "username": username,
-                "role": TEMP_USERS[username]["role"],
+                "username": user["username"],
+                "role": user["role"],
+                "user_id": user["id"],
                 "exp": datetime.utcnow()
                 + timedelta(hours=app.config["JWT_EXPIRATION_HOURS"]),
             }
@@ -166,8 +159,10 @@ def login():
             return jsonify(
                 {
                     "token": token,
-                    "username": username,
-                    "role": TEMP_USERS[username]["role"],
+                    "username": user["username"],
+                    "first_name": user["first_name"],
+                    "last_name": user["last_name"],
+                    "role": user["role"],
                     "expires_in": app.config["JWT_EXPIRATION_HOURS"] * 3600,  # seconds
                 }
             )
@@ -385,5 +380,13 @@ def internal_error(error):
     return jsonify({"error": "Internal server error"}), 500
 
 
-if __name__ == "__main__":  #
+if __name__ == "__main__":
+    # Initialize database before starting the app
+    try:
+        init_database()
+        logger.info("Database initialized successfully")
+    except Exception as e:
+        logger.error(f"Failed to initialize database: {str(e)}")
+        raise
+
     app.run(debug=True, host="0.0.0.0", port=5000)

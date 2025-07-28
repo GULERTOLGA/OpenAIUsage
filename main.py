@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify, send_from_directory
+from flask_cors import CORS
 import requests
 import os
 from datetime import datetime, timedelta
@@ -16,6 +17,9 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__, static_folder="build", static_url_path="")
+
+# Enable CORS for development
+CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000"])
 
 # Configuration
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
@@ -77,16 +81,30 @@ def serve():
 
 
 @app.route("/api/status")
-def api_status():
-    """API status endpoint"""
+def api_status_with_prefix():
+    """API status endpoint with /api prefix"""
     return jsonify(
         {
             "status": "running",
             "message": "OpenAI Usage API is running",
-            "endpoints": {"costs": "/costs", "projects": "/projects"},
+            "endpoints": {"costs": "/api/costs", "projects": "/api/projects"},
             "timestamp": datetime.now().isoformat(),
         }
     )
+
+
+@app.route("/api/costs", methods=["GET"])
+@require_api_key
+def get_costs_with_prefix():
+    """Get OpenAI costs data with /api prefix"""
+    return get_costs()
+
+
+@app.route("/api/projects", methods=["GET"])
+@require_api_key
+def get_projects_with_prefix():
+    """Get OpenAI projects list with /api prefix"""
+    return get_projects()
 
 
 @app.route("/costs", methods=["GET"])

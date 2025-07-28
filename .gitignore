@@ -79,3 +79,9 @@ coverage.xml
 .hypothesis/
 .pytest_cache/ 
 node_modules
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+users.db

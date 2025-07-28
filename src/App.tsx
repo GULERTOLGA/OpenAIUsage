@@ -106,6 +106,14 @@ function App() {
               <Navbar.Text className="me-3">
                 Welcome, {currentUser}!
               </Navbar.Text>
+              <Nav.Link 
+                href="#change-password" 
+                onClick={(e) => { e.preventDefault(); handleNavClick('change-password'); }}
+                active={currentPage === 'change-password'}
+                className="me-2"
+              >
+                Change Password
+              </Nav.Link>
               <Button 
                 variant="outline-light" 
                 size="sm"

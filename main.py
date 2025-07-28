@@ -9,7 +9,12 @@ from dotenv import load_dotenv
 from flask_caching import Cache
 import jwt
 from werkzeug.security import check_password_hash, generate_password_hash
-from database import init_database, verify_user_credentials, get_user_by_username
+from database import (
+    init_database,
+    verify_user_credentials,
+    get_user_by_username,
+    update_user_password,
+)
 
 # Load environment variables from .env file
 load_dotenv()
@@ -82,6 +87,23 @@ def require_jwt(f):
         return f(*args, **kwargs)
 
     return decorated_function
+
+
+def get_current_user_from_token():
+    """Helper function to get current user from JWT token"""
+    auth_header = request.headers.get("Authorization")
+    if auth_header and auth_header.startswith("Bearer "):
+        token = auth_header.split(" ")[1]
+        try:
+            payload = jwt.decode(
+                token,
+                app.config["SECRET_KEY"],
+                algorithms=[app.config["JWT_ALGORITHM"]],
+            )
+            return get_user_by_username(payload["username"])
+        except:
+            return None
+    return None
 
 
 def require_api_key(f):
@@ -174,6 +196,50 @@ def login():
         return jsonify({"error": "Internal server error"}), 500
 
 
+@app.route("/api/change-password", methods=["POST"])
+@require_jwt
+def change_password():
+    """Change password endpoint"""
+    try:
+        data = request.get_json()
+        current_password = data.get("current_password")
+        new_password = data.get("new_password")
+
+        if not current_password or not new_password:
+            return (
+                jsonify({"error": "Current password and new password are required"}),
+                400,
+            )
+
+        # Get current user from token
+        current_user = get_current_user_from_token()
+        if not current_user:
+            return jsonify({"error": "Invalid token"}), 401
+
+        # Verify current password
+        if not check_password_hash(current_user["password_hash"], current_password):
+            return jsonify({"error": "Current password is incorrect"}), 400
+
+        # Validate new password (basic validation)
+        if len(new_password) < 6:
+            return (
+                jsonify({"error": "New password must be at least 6 characters long"}),
+                400,
+            )
+
+        # Update password
+        success, message = update_user_password(current_user["id"], new_password)
+
+        if success:
+            return jsonify({"message": "Password changed successfully"}), 200
+        else:
+            return jsonify({"error": message}), 500
+
+    except Exception as e:
+        logger.error(f"Password change error: {str(e)}")
+        return jsonify({"error": "Internal server error"}), 500
+
+
 @app.route("/api/status")
 def api_status_with_prefix():
     """API status endpoint with /api prefix"""
@@ -183,6 +249,7 @@ def api_status_with_prefix():
             "message": "OpenAI Usage API is running",
             "endpoints": {
                 "login": "/api/login",
+                "change_password": "/api/change-password",
                 "costs": "/api/costs",
                 "projects": "/api/projects",
             },

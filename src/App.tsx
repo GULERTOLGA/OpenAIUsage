@@ -1,10 +1,40 @@
-import React, { useState } from 'react';
-import { Container, Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import { Container, Navbar, Nav, Button } from 'react-bootstrap';
 import SimpleRouter from './components/SimpleRouter';
+import Login from './components/Login';
+import { isAuthenticated, setAuthToken, clearAuthToken, getCurrentUser } from './services/api';
 import './App.css';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('usage');
+  const [authenticated, setAuthenticated] = useState(false);
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check if user is already authenticated on app load
+    const checkAuth = () => {
+      const auth = isAuthenticated();
+      setAuthenticated(auth);
+      if (auth) {
+        setCurrentUser(getCurrentUser());
+      }
+    };
+    
+    checkAuth();
+  }, []);
+
+  const handleLoginSuccess = (token: string, username: string) => {
+    setAuthToken(token, username);
+    setAuthenticated(true);
+    setCurrentUser(username);
+  };
+
+  const handleLogout = () => {
+    clearAuthToken();
+    setAuthenticated(false);
+    setCurrentUser(null);
+    setCurrentPage('usage');
+  };
 
   const handleNavClick = (page: string) => {
     setCurrentPage(page);
@@ -37,6 +67,11 @@ function App() {
     return <SimpleRouter currentPage={currentPage} />;
   };
 
+  // Show login page if not authenticated
+  if (!authenticated) {
+    return <Login onLoginSuccess={handleLoginSuccess} />;
+  }
+
   return (
     <div className="App">
       {/* Navigation Bar */}
@@ -66,6 +101,18 @@ function App() {
               >
                 Projects
               </Nav.Link>
+            </Nav>
+            <Nav>
+              <Navbar.Text className="me-3">
+                Welcome, {currentUser}!
+              </Navbar.Text>
+              <Button 
+                variant="outline-light" 
+                size="sm"
+                onClick={handleLogout}
+              >
+                Logout
+              </Button>
             </Nav>
           </Navbar.Collapse>
         </Container>

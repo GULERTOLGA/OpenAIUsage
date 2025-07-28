@@ -7,6 +7,8 @@ import logging
 from functools import wraps
 from dotenv import load_dotenv
 from flask_caching import Cache
+import jwt
+from werkzeug.security import check_password_hash, generate_password_hash
 
 # Load environment variables from .env file
 load_dotenv()
@@ -17,6 +19,13 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__, static_folder="build", static_url_path="")
+
+# JWT Configuration
+app.config["SECRET_KEY"] = os.getenv(
+    "SECRET_KEY", "your-secret-key-change-this-in-production"
+)
+app.config["JWT_ALGORITHM"] = "HS256"
+app.config["JWT_EXPIRATION_HOURS"] = 24
 
 # Enable CORS for development
 CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000"])
@@ -33,6 +42,53 @@ cache = Cache(app)
 # OpenAI API endpoints
 OPENAI_COSTS_URL = "https://api.openai.com/v1/organization/costs"
 OPENAI_PROJECTS_URL = "https://api.openai.com/v1/organization/projects"
+
+# Temporary user credentials (will be replaced with database later)
+TEMP_USERS = {
+    "admin": {
+        "username": "admin",
+        "password_hash": generate_password_hash("admin"),
+        "role": "admin",
+    }
+}
+
+
+def require_jwt(f):
+    """Decorator to check JWT token"""
+
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        token = None
+
+        # Get token from Authorization header
+        auth_header = request.headers.get("Authorization")
+        if auth_header and auth_header.startswith("Bearer "):
+            token = auth_header.split(" ")[1]
+
+        if not token:
+            return jsonify({"error": "Token is missing"}), 401
+
+        try:
+            # Decode token
+            payload = jwt.decode(
+                token,
+                app.config["SECRET_KEY"],
+                algorithms=[app.config["JWT_ALGORITHM"]],
+            )
+            current_user = payload["username"]
+
+            # Check if user exists
+            if current_user not in TEMP_USERS:
+                return jsonify({"error": "Invalid token"}), 401
+
+        except jwt.ExpiredSignatureError:
+            return jsonify({"error": "Token has expired"}), 401
+        except jwt.InvalidTokenError:
+            return jsonify({"error": "Invalid token"}), 401
+
+        return f(*args, **kwargs)
+
+    return decorated_function
 
 
 def require_api_key(f):
@@ -80,6 +136,49 @@ def serve():
     return send_from_directory(app.static_folder, "index.html")
 
 
+@app.route("/api/login", methods=["POST"])
+def login():
+    """Login endpoint to get JWT token"""
+    try:
+        data = request.get_json()
+        username = data.get("username")
+        password = data.get("password")
+
+        if not username or not password:
+            return jsonify({"error": "Username and password are required"}), 400
+
+        # Check if user exists and password is correct
+        if username in TEMP_USERS and check_password_hash(
+            TEMP_USERS[username]["password_hash"], password
+        ):
+            # Generate token
+            payload = {
+                "username": username,
+                "role": TEMP_USERS[username]["role"],
+                "exp": datetime.utcnow()
+                + timedelta(hours=app.config["JWT_EXPIRATION_HOURS"]),
+            }
+
+            token = jwt.encode(
+                payload, app.config["SECRET_KEY"], algorithm=app.config["JWT_ALGORITHM"]
+            )
+
+            return jsonify(
+                {
+                    "token": token,
+                    "username": username,
+                    "role": TEMP_USERS[username]["role"],
+                    "expires_in": app.config["JWT_EXPIRATION_HOURS"] * 3600,  # seconds
+                }
+            )
+        else:
+            return jsonify({"error": "Invalid username or password"}), 401
+
+    except Exception as e:
+        logger.error(f"Login error: {str(e)}")
+        return jsonify({"error": "Internal server error"}), 500
+
+
 @app.route("/api/status")
 def api_status_with_prefix():
     """API status endpoint with /api prefix"""
@@ -87,13 +186,18 @@ def api_status_with_prefix():
         {
             "status": "running",
             "message": "OpenAI Usage API is running",
-            "endpoints": {"costs": "/api/costs", "projects": "/api/projects"},
+            "endpoints": {
+                "login": "/api/login",
+                "costs": "/api/costs",
+                "projects": "/api/projects",
+            },
             "timestamp": datetime.now().isoformat(),
         }
     )
 
 
 @app.route("/api/costs", methods=["GET"])
+@require_jwt
 @require_api_key
 def get_costs_with_prefix():
     """Get OpenAI costs data with /api prefix"""
@@ -101,6 +205,7 @@ def get_costs_with_prefix():
 
 
 @app.route("/api/projects", methods=["GET"])
+@require_jwt
 @require_api_key
 def get_projects_with_prefix():
     """Get OpenAI projects list with /api prefix"""
@@ -108,6 +213,7 @@ def get_projects_with_prefix():
 
 
 @app.route("/costs", methods=["GET"])
+@require_jwt
 @require_api_key
 def get_costs():
     """Get OpenAI costs data"""
@@ -210,6 +316,7 @@ def get_costs():
 
 
 @app.route("/projects", methods=["GET"])
+@require_jwt
 @require_api_key
 def get_projects():
     """Get OpenAI projects list"""

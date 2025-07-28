@@ -5,6 +5,10 @@ services:
     image: gulertolga/openai-usage-api:latest
     container_name: openai-usage-backend
     environment:
+      # OpenAI API Key - Set this via environment variable or .env file
+      # Option 1: Create .env file with OPENAI_API_KEY=your-key
+      # Option 2: Set environment variable: $env:OPENAI_API_KEY="your-key"
+      # Option 3: Pass directly: docker-compose up -e OPENAI_API_KEY=your-key
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - OPENAI_ORG_ID=${OPENAI_ORG_ID:-}
       - FLASK_ENV=production

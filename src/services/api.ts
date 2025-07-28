@@ -1,5 +1,9 @@
 import axios from 'axios';
 
+// Token storage
+let authToken: string | null = localStorage.getItem('authToken');
+let currentUser: string | null = localStorage.getItem('currentUser');
+
 // Create axios instance with base configuration
 const api = axios.create({
   // In development, use relative URLs to leverage the proxy configuration
@@ -10,6 +14,25 @@ const api = axios.create({
     'Content-Type': 'application/json',
   },
 });
+
+// Token management functions
+export const setAuthToken = (token: string, username: string) => {
+  authToken = token;
+  currentUser = username;
+  localStorage.setItem('authToken', token);
+  localStorage.setItem('currentUser', username);
+};
+
+export const clearAuthToken = () => {
+  authToken = null;
+  currentUser = null;
+  localStorage.removeItem('authToken');
+  localStorage.removeItem('currentUser');
+};
+
+export const getAuthToken = () => authToken;
+export const getCurrentUser = () => currentUser;
+export const isAuthenticated = () => !!authToken;
 
 // Request interceptor for adding auth headers if needed
 api.interceptors.request.use(
@@ -24,7 +47,11 @@ api.interceptors.request.use(
       data: config.data
     });
     
-    // You can add authentication headers here if needed
+    // Add JWT token to requests if available
+    if (authToken) {
+      config.headers.Authorization = `Bearer ${authToken}`;
+    }
+    
     return config;
   },
   (error) => {
@@ -48,6 +75,13 @@ api.interceptors.response.use(
         data: error.response.data,
         url: error.config?.url
       });
+      
+      // Handle 401 Unauthorized - clear token and redirect to login
+      if (error.response.status === 401) {
+        clearAuthToken();
+        // You can add a redirect to login here if needed
+        window.location.href = '/';
+      }
     }
     return Promise.reject(error);
   }

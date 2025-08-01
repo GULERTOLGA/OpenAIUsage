@@ -17,13 +17,14 @@ from database import (
 )
 
 
+# Load environment variables from .env file if it exists
 dotenv_path = find_dotenv(usecwd=True)
-if not dotenv_path:
-    raise FileNotFoundError(".env dosyası bulunamadı!")
-print(f"Loading .env from: {dotenv_path}")
-
-# Load environment variables from .env file
-load_dotenv(dotenv_path=dotenv_path, override=True)
+if dotenv_path:
+    print(f"Loading .env from: {dotenv_path}")
+    load_dotenv(dotenv_path=dotenv_path, override=True)
+else:
+    print("No .env file found, using environment variables")
+    load_dotenv()
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 if not OPENAI_API_KEY or OPENAI_API_KEY == "Your_OpenAI_API_Key_Here":

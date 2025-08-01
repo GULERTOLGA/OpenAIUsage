@@ -5,7 +5,7 @@ import os
 from datetime import datetime, timedelta
 import logging
 from functools import wraps
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 from flask_caching import Cache
 import jwt
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -16,9 +16,21 @@ from database import (
     update_user_password,
 )
 
-# Load environment variables from .env file
-load_dotenv()
 
+dotenv_path = find_dotenv(usecwd=True)
+if not dotenv_path:
+    raise FileNotFoundError(".env dosyası bulunamadı!")
+print(f"Loading .env from: {dotenv_path}")
+
+# Load environment variables from .env file
+load_dotenv(dotenv_path=dotenv_path, override=True)
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+if not OPENAI_API_KEY or OPENAI_API_KEY == "Your_OpenAI_API_Key_Here":
+    raise EnvironmentError(
+        "OPENAI_API_KEY değeri bulunamadı veya geçersiz! "
+        "Lütfen .env dosyasını doğru API key ile güncelleyin."
+    )
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -37,8 +49,13 @@ app.config["JWT_EXPIRATION_HOURS"] = 24
 CORS(app, origins=["http://localhost:3000", "http://127.0.0.1:3000"])
 
 # Configuration
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 OPENAI_ORG_ID = os.getenv("OPENAI_ORG_ID", None)
+
+print(OPENAI_API_KEY)
+
+print("Current working dir:", os.getcwd())
+print(".env exists:", os.path.exists(".env"))
+print(app.config["SECRET_KEY"])
 
 # Cache configuration
 app.config["CACHE_TYPE"] = "simple"

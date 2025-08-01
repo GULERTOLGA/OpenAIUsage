@@ -6,9 +6,9 @@ let currentUser: string | null = localStorage.getItem('currentUser');
 
 // Create axios instance with base configuration
 const api = axios.create({
-  // In development, use relative URLs to leverage the proxy configuration
+  // In development, use direct backend URL
   // In production, use /api prefix which will be handled by nginx
-  baseURL: process.env.NODE_ENV === 'production' ? '/api' : '',
+  baseURL: process.env.NODE_ENV === 'production' ? '/api' : 'http://localhost:5000',
   timeout: 60000, // Increased from 10000 to 60000 (60 seconds)
   headers: {
     'Content-Type': 'application/json',
@@ -76,11 +76,16 @@ api.interceptors.response.use(
         url: error.config?.url
       });
       
-      // Handle 401 Unauthorized - clear token and redirect to login
+      // Handle 401 Unauthorized - only clear token for authentication endpoints
       if (error.response.status === 401) {
-        clearAuthToken();
-        // You can add a redirect to login here if needed
-        window.location.href = '/';
+        const url = error.config?.url || '';
+        // Only logout for authentication-related endpoints, not for API data endpoints
+        if (url.includes('/login') || url.includes('/change-password')) {
+          clearAuthToken();
+          window.location.href = '/';
+        }
+        // For other endpoints (like /costs, /projects), just reject the promise
+        // so the component can handle the error appropriately
       }
     }
     return Promise.reject(error);

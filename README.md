@@ -71,8 +71,17 @@ export OPENAI_API_KEY="your-api-key-here"
 
 3. Optionally configure OpenAI Organization ID:
 ```bash
+# Windows PowerShell
 $env:OPENAI_ORG_ID="your-org-id-here"
+
+# Windows Command Prompt
+set OPENAI_ORG_ID=your-org-id-here
+
+# Linux/Mac
+export OPENAI_ORG_ID="your-org-id-here"
 ```
+
+**Note:** If you have multiple OpenAI organizations, you can set the `OPENAI_ORG_ID` environment variable to specify which organization's data to access. This is optional - if not set, the API will use your default organization.
 
 ### Frontend Setup
 
@@ -100,6 +109,9 @@ npm run build
 # Set your OpenAI API key
 export OPENAI_API_KEY="your-api-key-here"
 
+# Optionally set your OpenAI Organization ID (if you have multiple organizations)
+export OPENAI_ORG_ID="your-org-id-here"
+
 # Run with Docker Hub images
 docker-compose up
 
@@ -114,8 +126,9 @@ docker-compose up
 docker pull gulertolga/openai-usage-api:latest
 docker pull gulertolga/openai-usage-frontend:latest
 
-# Set environment variable
+# Set environment variables
 export OPENAI_API_KEY="your-api-key-here"
+export OPENAI_ORG_ID="your-org-id-here"  # Optional
 
 # Run with docker-compose
 docker-compose up
